@@ -2,6 +2,7 @@ const http = require('node:http')
 const fs = require('fs')
 
 'http://localhost:5000/posts'
+
 let posts = [
     {
         id: 1,
@@ -25,6 +26,7 @@ const server = http.createServer((req, res) => {
             req.on('end', () => {
                 const newPost = Object.assign(JSON.parse(body), { id: posts.length + 1 })
                 posts.push(newPost)
+                res.statusCode = 201;
                 res.setHeader('Content-Type', 'application/json')
                 res.end(JSON.stringify(posts))
             })
@@ -35,7 +37,7 @@ const server = http.createServer((req, res) => {
             req.on('end', () => {
                 const { id, title } = JSON.parse(body)
                 const post = JSON.parse(body)
-                console.log(post)
+
                 posts = posts.map(p => {
                     if (p.id == post.id) {
                         return { ...p, ...post }
