@@ -8,14 +8,15 @@ POST http://localhost:5000/posts
 Content-Type: application/json
 
 {
-    "title": "title 3"
+   "title": "new title 2",
+    "body": "aboug the title 2"
 }
 ###
-PUT http://localhost:5000/posts/312312312
+PUT http://localhost:5000/posts/66f1191b0bb72f0cd96a0e41
 Content-Type: application/json
 
 {
     "title": "new awefwe"
 }
 ###
-DELETE http://localhost:5000/posts/1
+DELETE http://localhost:5000/posts/66f119736089009468ca07de

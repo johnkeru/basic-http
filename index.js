@@ -24,7 +24,7 @@ app.post('/posts', async (req, res) => {
 // http://localhost:5000/posts/1312
 app.put('/posts/:id', async (req, res) => {
     try {
-        const id = parseInt(req.params.id)
+        const id = req.params.id
         const body = req.body
         await Post.findByIdAndUpdate(id, body)
         res.send('New post added successfully')
@@ -34,7 +34,7 @@ app.put('/posts/:id', async (req, res) => {
 })
 app.delete('/posts/:id', async (req, res) => {
     const id = req.params.id
-    await Post.findByIdAndUpdate(id)
+    await Post.findByIdAndDelete(id)
     res.send('post deleted successfully')
 })
 
