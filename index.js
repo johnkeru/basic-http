@@ -1,7 +1,5 @@
-const http = require('node:http')
-const fs = require('fs')
-
-'http://localhost:5000/posts'
+const express = require('express')
+const app = express()
 
 let posts = [
     {
@@ -13,60 +11,22 @@ let posts = [
         title: 'post 2'
     },
 ]
-
-const server = http.createServer((req, res) => {
-    const method = req.method
-    if (req.url === '/posts') {
-        if (method === "GET") {
-            res.setHeader('Content-Type', 'application/json')
-            res.end(JSON.stringify(posts))
-        } else if (method === 'POST') {
-            let body = ''
-            req.on('data', chunk => body += chunk.toString())
-            req.on('end', () => {
-                const newPost = Object.assign(JSON.parse(body), { id: posts.length + 1 })
-                posts.push(newPost)
-                res.statusCode = 201;
-                res.setHeader('Content-Type', 'application/json')
-                res.end(JSON.stringify(posts))
-            })
-        }
-        else if (method === 'PUT') {
-            let body = ''
-            req.on('data', chunk => body += chunk.toString())
-            req.on('end', () => {
-                const { id, title } = JSON.parse(body)
-                const post = JSON.parse(body)
-
-                posts = posts.map(p => {
-                    if (p.id == post.id) {
-                        return { ...p, ...post }
-                    }
-                    return p
-                })
-                res.setHeader('Content-Type', 'application/json')
-                res.end(JSON.stringify(posts))
-            })
-        }
-        else {
-            let body = ''
-            req.on('data', chunk => body += chunk.toString())
-            req.on('end', () => {
-                const { id } = JSON.parse(body)
-                posts = posts.filter(p => p.id !== id)
-                res.setHeader('Content-Type', 'application/json')
-                res.end(JSON.stringify(posts))
-            })
-        }
-    } else {
-        const pageContent = fs.readFileSync('404.html')
-        res.setHeader('Content-Type', 'text/html')
-        res.end(pageContent)
-    }
+app.use(express.json())
+app.use((req, res, next) => {
+    console.log('authenticating...')
+    req.user = { id: 1, name: 'user1' }
+    next()
 })
 
-server.listen(
-    5000,
-    'localhost',
-    () => console.log('Server is listening on: http://localhost:5000')
-)
+app.get('/posts', (req, res) => {
+    console.log(req.user)
+    res.status(200).json(posts)
+})
+app.post('/posts', (req, res) => {
+    const body = req.body
+    console.log(body)
+    res.send('posts')
+})
+
+
+app.listen(5000, () => console.log('listening on: http://localhost:5000'));
