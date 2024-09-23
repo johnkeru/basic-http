@@ -8,10 +8,15 @@ const posts = [
 ]
 
 const server = http.createServer((req, res) => {
-    console.log(req.method)
+    const method = req.method
     if (req.url === '/posts') {
-        res.setHeader('Content-Type', 'application/json')
-        res.end(JSON.stringify(posts))
+        if (method === "GET") {
+            res.setHeader('Content-Type', 'application/json')
+            res.end(JSON.stringify(posts))
+        } else if (method === 'POST') {
+            res.setHeader('Content-Type', 'application/json')
+            res.end(JSON.stringify(posts))
+        }
     } else {
         const pageContent = fs.readFileSync('404.html')
         res.setHeader('Content-Type', 'text/html')
