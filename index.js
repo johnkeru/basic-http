@@ -14,6 +14,8 @@ let posts = [
 // parses json to object
 app.use(express.json())
 
+app.use(express.json())
+
 app.get('/posts', (req, res) => {
     res.status(200).json(posts)
 })
