@@ -11,21 +11,33 @@ let posts = [
         title: 'post 2'
     },
 ]
-app.use(express.json())
-app.use((req, res, next) => {
-    console.log('authenticating...')
-    req.user = { id: 1, name: 'user1' }
-    next()
-})
 
 app.get('/posts', (req, res) => {
-    console.log(req.user)
     res.status(200).json(posts)
 })
 app.post('/posts', (req, res) => {
     const body = req.body
-    console.log(body)
-    res.send('posts')
+    posts.push(body)
+    res.send('New post added successfully')
+})
+// http://localhost:5000/posts/1312
+app.put('/posts/:id', (req, res) => {
+    const id = req.params.id
+    const { title } = req.body
+    posts.map(post => {
+        if (post.id == id) {
+            post.title = title
+        }
+        return post
+    })
+    res.send('New post added successfully')
+})
+app.delete('/posts/:id', (req, res) => {
+    const id = req.params.id
+    posts = posts.filter(p => {
+        return p.id !== parseInt(id)
+    })
+    res.send('post deleted successfully')
 })
 
 

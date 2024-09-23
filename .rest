@@ -9,17 +9,11 @@ Content-Type: application/json
     "title": "title 3"
 }
 ###
-PUT http://localhost:5000/posts
+PUT http://localhost:5000/posts/2
 Content-Type: application/json
 
 {
-    "id": 2,
-    "title": "new title"
+    "title": "new awefwe"
 }
 ###
-DELETE http://localhost:5000/posts
-Content-Type: application/json
-
-{
-    "id": 1
-}
+DELETE http://localhost:5000/posts/1
