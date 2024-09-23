@@ -1,0 +1,7 @@
+GET http://localhost:5000/posts
+###
+POST http://localhost:5000/posts
+###
+PUT http://localhost:5000/posts
+###
+DELETE http://localhost:5000/posts
