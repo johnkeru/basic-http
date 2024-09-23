@@ -11,13 +11,15 @@ let posts = [
         title: 'post 2'
     },
 ]
+// parses json to object
+app.use(express.json())
 
 app.get('/posts', (req, res) => {
     res.status(200).json(posts)
 })
 app.post('/posts', (req, res) => {
     const body = req.body
-    posts.push(body)
+    posts.push({ ...body, id: posts.length + 1 })
     res.send('New post added successfully')
 })
 // http://localhost:5000/posts/1312
