@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <form action="/register" method="post" style="display: grid; width: 500px; margin: auto;">
+        <h1>Register</h1>
+        <input type="text" name="username" required placeholder="Enter username">
+        <% if(field==='username' ) { %>
+            <p style="color: red;">
+                <%=message%>
+            </p>
+            <% } %>
+                <input type="password" name="password" required placeholder="Enter password">
+                <% if(field==='password' ) { %>
+                    <p style="color: red;">
+                        <%=message%>
+                    </p>
+                    <% } %>
+                        <input type="password" name="confirm_password" required placeholder="Enter confirm_password">
+                        <% if(field==='confirm_password' ) { %>
+                            <p style="color: red;">
+                                <%=message%>
+                            </p>
+                            <% } %>
+                                <button type="submit">Submit</button>
+                                <a href="/login">Don't have an account yet?</a>
+    </form>
+</body>
+
+</html>

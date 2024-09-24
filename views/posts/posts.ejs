@@ -9,9 +9,16 @@
 </head>
 
 <body>
+    <h1>
+        Username: <%=currentUser.username%>
+    </h1>
+
+    <a href="/logout"><button>Logout</button></a>
+
     <a href="/post-form">
         Create new post
     </a>
+
 
     <% posts.forEach(post=> { %>
 
@@ -23,10 +30,12 @@
                 <%= post.body %>
             </p>
             <span class="date">Posted on <%= post.date %></span>
-            <a href="/post-form-update/<%=post._id%>">update</a>
-            <form action="/posts/<%=post._id%>?_method=DELETE" method="post">
-                <button type="submit">Delete</button>
-            </form>
+            <%if(post.user.toString()===currentUser._id.toString()) { %>
+                <a href="/post-form-update/<%=post._id%>">update</a>
+                <form action="/posts/<%=post._id%>?_method=DELETE" method="post">
+                    <button type="submit">Delete</button>
+                </form>
+                <% } %>
         </div>
         <% }) %>
 </body>

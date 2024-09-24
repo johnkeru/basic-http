@@ -1,18 +1,21 @@
 // module.exports
 const Post = require('../models/Post')
+const User = require('../models/User')
 
 exports.getPosts = async (req, res) => {
     const posts = await Post.find()
+    const userId = req.userId
+    const currentUser = await User.findById(userId)
     // res.status(200).json(posts)
-    res.render('posts', { posts })
+    res.render('posts/posts', { posts, currentUser })
 }
 
-exports.renderPostForm = (req, res) => res.render('create-post')
-
+exports.renderPostForm = (req, res) => res.render('posts/create-post')
 exports.createPost = async (req, res) => {
     try {
         const body = req.body
-        const newPost = new Post(body)
+        const userId = req.userId
+        const newPost = new Post(Object.assign(body, { user: userId }))
         await newPost.save();
         res.redirect('/posts')
     } catch {
@@ -22,7 +25,7 @@ exports.createPost = async (req, res) => {
 
 exports.renderUpdateForm = async (req, res) => {
     const post = await Post.findById(req.params.id)
-    res.render('update-post', { post })
+    res.render('posts/update-post', { post })
 }
 
 exports.updatePost = async (req, res) => {
