@@ -3,7 +3,7 @@ const Post = require('../models/Post')
 const User = require('../models/User')
 
 exports.getPosts = async (req, res) => {
-    const posts = await Post.find()
+    const posts = await Post.find().populate({ path: 'user', select: '-password' })
     const userId = req.userId
     const currentUser = await User.findById(userId)
     // res.status(200).json(posts)

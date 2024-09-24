@@ -23,6 +23,9 @@
     <% posts.forEach(post=> { %>
 
         <div class="card">
+            <h6>
+                Posted by: <%=post.user.username %>
+            </h6>
             <h2>
                 <%= post.title %>
             </h2>
@@ -30,7 +33,7 @@
                 <%= post.body %>
             </p>
             <span class="date">Posted on <%= post.date %></span>
-            <%if(post.user.toString()===currentUser._id.toString()) { %>
+            <%if(post.user._id.toString()===currentUser._id.toString()) { %>
                 <a href="/post-form-update/<%=post._id%>">update</a>
                 <form action="/posts/<%=post._id%>?_method=DELETE" method="post">
                     <button type="submit">Delete</button>
