@@ -1,0 +1,14 @@
+[{
+  "_id": {
+    "$oid": "66f223d77f1f34cb4aadce99"
+  },
+  "title": "awefawef",
+  "body": "awefawefawefawefawe",
+  "user": {
+    "$oid": "66f21f5eafa3641efae06bf9"
+  },
+  "createdAt": {
+    "$date": "2024-09-24T02:28:39.153Z"
+  },
+  "__v": 0
+}]
