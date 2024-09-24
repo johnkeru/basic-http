@@ -39,6 +39,7 @@ app.put('/posts/:id', async (req, res) => {
     try {
         const id = req.params.id
         const body = req.body
+        console.log(id, body)
         await Post.findByIdAndUpdate(id, body)
         res.redirect('/posts')
     } catch (e) {
